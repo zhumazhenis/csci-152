@@ -57,19 +57,15 @@ bool queue::checkinvariant() const {
 queue::queue() : current_size(0) {}
 
 queue::queue(const queue &q) : current_size(0) {
-    qnode *current = q.first;
-    while (current != nullptr) {
+    for (qnode *current = q.first; current != nullptr; current = current->next) {
         push(current->val);
-        current = current->next;
     }
 }
 
 const queue &queue::operator=(const queue &q) {
     clear();
-    qnode *current = q.first;
-    while (current != nullptr) {
+    for (qnode *current = q.first; current != nullptr; current = current->next) {
         push(current->val);
-        current = current->next;
     }
     return *this;
 }
@@ -121,10 +117,8 @@ double queue::peek() const {
 }
 
 void queue::print(std::ostream &os) const {
-    qnode *current = first;
-    while (current != nullptr) {
+    for (qnode *current = first; current != nullptr; current = current->next) {
         os << current->val << ' ';
-        current = current->next;
     }
 }
 
