@@ -1,8 +1,5 @@
 
 #include "queue.h"
-#include <assert.h>
-
-using namespace std;
 
 // TODO: Implement everything from the queue class here, along with
 // testqueue ... we are only providing checkinvariant
@@ -77,7 +74,7 @@ queue::~queue() {
     clear();
 }
 
-queue::queue(std::initializer_list<double> init) : current_size(0) {
+queue::queue(std::initializer_list<double> init) : current_size(0), first(nullptr), last(nullptr) {
     for (auto entry : init) {
         push(entry);
     }
