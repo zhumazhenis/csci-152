@@ -6,7 +6,6 @@
 #include <initializer_list>
 
 // Normally, one would define qnode inside queue:
-
 struct qnode {
     double val;
     qnode *next;    // Next in the queue.
@@ -15,7 +14,6 @@ struct qnode {
             val(val),
             next(nullptr) {}
 };
-
 
 class queue {
     size_t current_size;
@@ -61,7 +59,7 @@ inline std::ostream &operator<<(std::ostream &out, const queue &q) {
     return out;
 }
 
-//void testqueue();
+void testqueue();
 // Write this function in queue.cpp. It must do some tests on
 // queue.
 
