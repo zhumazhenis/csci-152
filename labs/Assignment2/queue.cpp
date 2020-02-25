@@ -63,6 +63,9 @@ queue::queue(const queue &q) : current_size(0), first(nullptr), last(nullptr) {
 }
 
 const queue &queue::operator=(const queue &q) {
+    if (this == &q) {
+        return *this;
+    }
     clear();
     for (qnode *current = q.first; current != nullptr; current = current->next) {
         push(current->val);
