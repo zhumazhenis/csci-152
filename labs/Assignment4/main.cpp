@@ -36,6 +36,15 @@ int main(int argc, char *argv[]) {
     small.insert(131);
     small.insert(121);
 
+    set x = {1,2,4,7,8,10,20};
+    std::cout << "My Set: \n";
+    std::cout << x << std::endl;
+    x.remove(4);
+    x.remove(7);
+    x.remove(8);
+    x.remove(10);
+    std::cout << x << std::endl;
+
     std::cout << "before removal\n";
     std::cout << small << "\n";
     small.remove(125);
@@ -97,4 +106,9 @@ int main(int argc, char *argv[]) {
 #endif
 }
 
+/*
+
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./main main
+
+ */
 

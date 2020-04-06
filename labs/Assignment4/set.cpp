@@ -76,15 +76,8 @@ size_t log_base2(size_t s) {
     if (s == 0) {
         return 0;
     }
-    size_t curr = 1;
     size_t count = 0;
-    while (curr < s) {
-        curr *= 2;
-        count++;
-    }
-    if (s == curr) {
-        return count;
-    }
+    for (size_t curr = 1; curr <= s; curr *= 2, count++);
     return count - 1;
 }
 
@@ -132,25 +125,29 @@ bool set::contains(int i) const {
 
 // TODO: Task 5
 treenode *removerightmost(treenode **from) {
-    if ((*from)->right == nullptr) {
-        treenode *temp = *from;
-        *from = (*from)->left;
-        return temp;
+    if (*from == nullptr) {
+        return nullptr;
     }
-    return removerightmost(&(*from)->right);
+    treenode **curr = from;
+    while ((*curr)->right != nullptr) {
+        curr = &(*curr)->right;
+    }
+    treenode *temp = *curr;
+    *curr = (*curr)->left;
+    return temp;
 }
 
 bool set::remove(int i) {
     treenode **node = find(&tr, i);
-    if ((*node) != nullptr) {
-        if ((*node)->left == nullptr && (*node)->right == nullptr) {
-            delete *node;
-            *node = nullptr;
+    if (*node != nullptr) {
+        treenode *rightmost = removerightmost(&(*node)->left);
+        if (rightmost == nullptr) {
+            treenode *temp = *node;
+            *node = (*node)->right;
+            delete temp;
         } else {
-            treenode *rightmost = removerightmost(node);
-            if (i != rightmost->val) {
-                (*node)->val = rightmost->val;
-            }
+            (*node)->val = rightmost->val;
+            delete rightmost;
         }
         return true;
     }
@@ -190,12 +187,7 @@ size_t height(const treenode *n) {
     if (n == nullptr) {
         return 0;
     }
-    size_t left = height(n->left);
-    size_t right = height(n->right);
-    if (left < right) {
-        return right + 1;
-    }
-    return left + 1;
+    return std::max(height(n->left), height(n->right)) + 1;
 }
 
 // TODO: Task 9
